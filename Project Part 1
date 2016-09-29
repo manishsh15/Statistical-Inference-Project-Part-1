@@ -1,0 +1,62 @@
+# Set seed
+set.seed(2)
+
+# Set lambda
+lambda <- 0.2
+
+# Simulations
+simulations <- 1000
+
+# Samples
+n <- 40
+
+# Simulate
+simulated_exponentials <- replicate(simulations, rexp(n, lambda))
+
+#mean of exponentials
+means_exponentials <- colMeans(simulated_exponentials)
+
+# Simulated mean
+simulated_mean <- mean(mean_exponentials)
+(simulated_mean)
+## [1] 5.016356
+
+### Theoretical mean
+theory_mean <- 1/lambda
+(theory_mean)
+
+## [1] 5
+
+# Graph
+
+hist(mean_exponentials, breaks = 20, xlab = "Mean", main = "Histogram of 1000 Simulated Exponential Means", col = "cyan")
+abline(v = simulated_mean, col = "red")
+
+##Ques 2
+
+# standard deviation of distribution
+standard_deviation_distribution <- sd(mean_exponentials)
+simulated_var <- standard_deviation_distribution^2
+simulated_var
+
+## [1] 0.6691305
+
+# Theoretical Standard Deviation and Variance
+standard_deviation_theory <- (1/lambda)/sqrt(n)
+theory_var <-standard_deviation_theory^2
+theory_var
+
+## [1] 0.625
+
+##Ques 3
+
+# Plot Histogram
+hist(meanexp, breaks = 40, xlab = "Mean", main = "Comparison to a Normal Distribution", col = "beige")
+
+# Add the Theoretical Normal Distribution Line
+xfit <- seq(min(mean_exponentials), max(mean_exponentials), length = 100) 
+yfit <- dnorm(xfit, mean = 1/lambda, sd = 1/lambda/sqrt(n))
+lines(xfit, yfit*100, lty=2)
+
+
+
